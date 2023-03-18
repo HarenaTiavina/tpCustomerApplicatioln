@@ -58,4 +58,8 @@ public class CustomerDetailsBean implements Serializable {
     public void loadCustomer() {
         this.customer = customerManager.findById(idCustomer);
     }
+    
+    public String getList (){
+        return null;
+    } 
 }
