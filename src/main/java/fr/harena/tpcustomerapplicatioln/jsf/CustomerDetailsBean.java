@@ -5,8 +5,11 @@
 package fr.harena.tpcustomerapplicatioln.jsf;
 
 import fr.harena.tpcustomerapplicatioln.ejb.CustomerManager;
+import fr.harena.tpcustomerapplicatioln.ejb.DiscountManager;
 import fr.harena.tpcustomerapplicatioln.entities.Customer;
+import fr.harena.tpcustomerapplicatioln.entities.Discount;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -15,15 +18,19 @@ import javax.inject.Named;
  *
  * @author haren
  */
-@Named
+@Named(value = "customerDetailsBean")  
 @ViewScoped
 public class CustomerDetailsBean implements Serializable {
 
     private int idCustomer;
     private Customer customer;
+    private List<Discount> discounts;
 
     @EJB
     private CustomerManager customerManager;
+    
+    @EJB
+    private DiscountManager discountManager;
 
     public int getIdCustomer() {
         return idCustomer;
@@ -58,8 +65,10 @@ public class CustomerDetailsBean implements Serializable {
     public void loadCustomer() {
         this.customer = customerManager.findById(idCustomer);
     }
-    
-    public String getList (){
-        return null;
-    } 
+     
+    public List<Discount> getDiscounts() {
+        discounts = discountManager.getAllDiscounts();
+        System.out.println(discounts.size());
+        return discounts;
+   }
 }
